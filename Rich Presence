@@ -1,0 +1,34 @@
+void InitDiscord()
+{
+    DiscordEventHandlers handlers;
+    memset(&handlers, 0, sizeof(handlers));
+    handlers.ready = handleDiscordReady;
+    handlers.errored = handleDiscordError;
+    handlers.disconnected = handleDiscordDisconnected;
+    handlers.joinGame = handleDiscordJoinGame;
+    handlers.spectateGame = handleDiscordSpectateGame;
+    handlers.joinRequest = handleDiscordJoinRequest;
+
+    // Discord_Initialize(const char* applicationId, DiscordEventHandlers* handlers, int autoRegister, const char* optionalSteamId)
+    Discord_Initialize("624435527718010881", &handlers, 1, "1234");
+}
+
+static void UpdatePresence()
+{
+    DiscordRichPresence discordPresence;
+    memset(&discordPresence, 0, sizeof(discordPresence));
+    discordPresence.state = "Playing";
+    discordPresence.details = "Visual Code Studio";
+    discordPresence.startTimestamp = 1507665886;
+    discordPresence.endTimestamp = 1507665886;
+    discordPresence.largeImageKey = "45552457_p0";
+    discordPresence.largeImageText = "Nyaa~";
+    discordPresence.smallImageKey = "17eea0277f2676085775a0264460c568";
+    discordPresence.smallImageText = "Hera";
+    discordPresence.partyId = "ae488379-351d-4a4f-ad32-2b9b01c91657";
+    discordPresence.partySize = 1;
+    discordPresence.partyMax = 1;
+    discordPresence.spectateSecret = "MTIzNDV8MTIzNDV8MTMyNDU0";
+    discordPresence.joinSecret = "MTI4NzM0OjFpMmhuZToxMjMxMjM= ";
+    Discord_UpdatePresence(&discordPresence);
+}
